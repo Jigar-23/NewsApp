@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NewsApp</string>
+    <string name="baseUrl"><![CDATA[https://gnews.io/api/v4/]]></string>
 </resources>
