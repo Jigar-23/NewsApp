@@ -1,6 +1,7 @@
 package com.example.newsapp.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +9,19 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapp.R
+import com.example.newsapp.adapters.MyRecyclerAdapter
 import com.example.newsapp.dataClasses.OtherData
 
-class MyFragment : Fragment() {
+class MyFragment(
+    private val arrayList: ArrayList<OtherData>,
+    private val activity: FragmentActivity
+) :
+    Fragment() {
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -21,27 +30,19 @@ class MyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment, container, false)
-        view.findViewById<TextView>(R.id.title).text = arguments?.getString("title")
-        view.findViewById<TextView>(R.id.description).text = arguments?.getString("description")
-        Glide.with(this@MyFragment).load(arguments?.getString("image")).into(view.findViewById(R.id.image))
-
+        createRecyclerView(arrayList,view)
         return view
     }
 
     companion object {
-        fun createNewInstance(data: OtherData): MyFragment {
-            val fragment = MyFragment()
-            fragment.apply {
-                arguments = Bundle().apply {
-                    putString("title", data.title)
-                    putString("description", data.description)
-                    putString("url", data.url)
-                    putString("image", data.image)
-                    putString("content", data.content)
-                    putString("publishedAt", data.publishedAt)
-                }
-            }
-            return fragment
+        fun createNewInstance(data: ArrayList<OtherData>, context: FragmentActivity): MyFragment {
+            return MyFragment(data, context)
         }
+    }
+
+    private fun createRecyclerView(arrayList: ArrayList<OtherData>, context: View) {
+        val recyclerView = context.findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(view?.context)
+        recyclerView.adapter = MyRecyclerAdapter(arrayList,activity)
     }
 }
