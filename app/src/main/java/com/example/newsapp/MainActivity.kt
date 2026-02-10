@@ -1,8 +1,6 @@
 package com.example.newsapp
 
-import android.content.Intent
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -115,12 +113,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openArticle(article: Article) {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
-        if (browserIntent.resolveActivity(packageManager) != null) {
-            startActivity(browserIntent)
-        } else {
-            Snackbar.make(binding.root, R.string.no_browser_found, Snackbar.LENGTH_SHORT).show()
+        if (article.url.isBlank()) {
+            Snackbar.make(binding.root, R.string.invalid_article_url, Snackbar.LENGTH_SHORT).show()
+            return
         }
+
+        startActivity(
+            ArticleWebViewActivity.newIntent(
+                context = this,
+                url = article.url,
+                title = article.title
+            )
+        )
     }
 
     private fun runSearch() {

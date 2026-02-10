@@ -8,4 +8,6 @@
     <string name="no_search_results">No results found for \"%1$s\".</string>
     <string name="article_image_content_description">Article image</string>
     <string name="no_browser_found">No browser app found on this device.</string>
+    <string name="article">Article</string>
+    <string name="invalid_article_url">Unable to open this article.</string>
 </resources>
