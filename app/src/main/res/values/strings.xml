@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">NewsApp</string>
+    <string name="search_hint">Search news by keyword</string>
+    <string name="search">Search</string>
+    <string name="clear">Clear</string>
+    <string name="error_loading_news">Unable to load news right now.</string>
+    <string name="no_news_available">No news available right now. Pull to refresh and try again.</string>
+    <string name="no_search_results">No results found for \"%1$s\".</string>
+    <string name="article_image_content_description">Article image</string>
+    <string name="no_browser_found">No browser app found on this device.</string>
 </resources>
